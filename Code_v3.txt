@@ -1,0 +1,85 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void wypisz(int w)
+{
+	cout << w << "\n";
+}
+
+int suma(int a, int b)
+{
+	return a + b;
+}
+
+void wypisz(vector<int>tab)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		cout << tab[i] << ", ";
+	}
+	cout << endl;
+}
+
+bool CzyNalezy(vector<int>tab, int szukana_wartosc)
+{
+	for (int i = 0; i < tab.size(); i++)
+	{
+		if (tab[i] == szukana_wartosc)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool CzyZawiera(vector<int>tab, vector<int>szukane_wartosci)
+{
+	for (int i = 0; i < szukane_wartosci.size(); i++)
+	{
+		if (!CzyNalezy(tab, szukane_wartosci[i]))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+
+int main()
+{
+	int a=5;
+	wypisz(a);
+
+	int c = suma(a, 6);
+	wypisz(c);
+
+	vector<int>tab;
+	tab = { 1,2,3 };
+	wypisz(tab);
+
+
+	bool wynik = CzyNalezy(tab,4);
+	if (wynik)
+	{
+		cout << "Tak\n";
+	}
+	else
+	{
+		cout << "Nie\n";
+	}
+
+	vector<int>szukane_wartosci;
+	szukane_wartosci = { 1,6 };
+
+	bool zawarte = CzyZawiera(tab, szukane_wartosci);
+	if(zawarte)
+	{
+		cout << "Tak\n";
+	}
+	else
+	{
+		cout << "Nie\n";
+	}
+
+}
