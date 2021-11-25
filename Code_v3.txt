@@ -1,3 +1,4 @@
+#include "pch.h"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -7,25 +8,20 @@ void wypisz(int w)
 	cout << w << "\n";
 }
 
-int suma(int a, int b)
-{
-	return a + b;
-}
-
 void wypisz(vector<int>tab)
 {
-	for (int i = 0; i < tab.size(); i++)
+	for (int i = 0;i < tab.size();i++)
 	{
 		cout << tab[i] << ", ";
 	}
-	cout << endl;
+	cout <<  endl;
 }
 
 bool CzyNalezy(vector<int>tab, int szukana_wartosc)
 {
-	for (int i = 0; i < tab.size(); i++)
+	for (int i = 0;i < tab.size();i++)
 	{
-		if (tab[i] == szukana_wartosc)
+		if (tab[i]==szukana_wartosc)
 		{
 			return true;
 		}
@@ -35,7 +31,7 @@ bool CzyNalezy(vector<int>tab, int szukana_wartosc)
 
 bool CzyZawiera(vector<int>tab, vector<int>szukane_wartosci)
 {
-	for (int i = 0; i < szukane_wartosci.size(); i++)
+	for (int i = 0;i < szukane_wartosci.size();i++)
 	{
 		if (!CzyNalezy(tab, szukane_wartosci[i]))
 		{
@@ -45,41 +41,82 @@ bool CzyZawiera(vector<int>tab, vector<int>szukane_wartosci)
 	return true;
 }
 
+int max(vector<int>tab)
+{
+	int wynik = tab[0];
+	{
+		for (int i = 0;i < tab.size();i++)
+		{
+			if (tab[i] > wynik)
+			{
+				wynik = tab[i];
+			}
+		}
+		return wynik;
+	}
+}
+
+vector<int>unikalne(vector<int>tab)
+{
+	vector<int>wynik;
+	for (int i = 0;i < tab.size();i++)
+	{
+		if (!CzyNalezy(wynik,tab[i]))
+		{
+			wynik.push_back(tab[i]);
+		}
+	}
+	return wynik;
+}
+
+vector<vector<int>>czestosc(vector<int>tab)
+{
+	vector<vector<int>>wynik;
+	vector<int>u = unikalne(tab);
+	vector<int>c;
+	for (int i = 0;i < u.size();i++)
+	{
+		int licznik = 0;
+		for (int j=0;j<tab.size();j++)
+		{
+			if (tab[j]==u[i])
+			{
+				licznik ++;
+			}
+		}
+		c.push_back(licznik);
+	}
+	wynik.push_back(u);
+	wynik.push_back(c);
+	return wynik;
+}
+
 
 int main()
 {
-	int a=5;
-	wypisz(a);
-
-	int c = suma(a, 6);
-	wypisz(c);
-
-	vector<int>tab;
-	tab = { 1,2,3 };
+	vector<int>tab = { 1,2,3 };
+	vector<int>szukane_wartosci = { 1,2 };
+	vector<int>tab2 = { 1,1,2,2,3,4,5,5 };
 	wypisz(tab);
-
-
-	bool wynik = CzyNalezy(tab,4);
-	if (wynik)
+	wypisz(max(tab));
+	if (CzyNalezy(tab, 4))
 	{
-		cout << "Tak\n";
+		cout << "nalezy \n";
 	}
 	else
 	{
-		cout << "Nie\n";
+		cout << "nie nalezy\n";
 	}
-
-	vector<int>szukane_wartosci;
-	szukane_wartosci = { 1,6 };
-
-	bool zawarte = CzyZawiera(tab, szukane_wartosci);
-	if(zawarte)
+	if (CzyZawiera(tab, szukane_wartosci))
 	{
-		cout << "Tak\n";
+		cout << "zawiera\n";
 	}
 	else
 	{
-		cout << "Nie\n";
+		cout << "nie zawiera\n";
 	}
 
-}
+	wypisz(unikalne(tab2));
+	wypisz(czestosc(tab2));
+
+	system("pause");
