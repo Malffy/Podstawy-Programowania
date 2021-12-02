@@ -14,14 +14,14 @@ void wypisz(vector<int>tab)
 	{
 		cout << tab[i] << ", ";
 	}
-	cout <<  endl;
+	cout << endl;
 }
 
-bool CzyNalezy(vector<int>tab, int szukana_wartosc)
+bool CzyNalezy(vector<int>tab, int szukane_wartosci)
 {
 	for (int i = 0;i < tab.size();i++)
 	{
-		if (tab[i]==szukana_wartosc)
+		if (tab[i]==szukane_wartosci)
 		{
 			return true;
 		}
@@ -33,7 +33,7 @@ bool CzyZawiera(vector<int>tab, vector<int>szukane_wartosci)
 {
 	for (int i = 0;i < szukane_wartosci.size();i++)
 	{
-		if (!CzyNalezy(tab, szukane_wartosci[i]))
+		if (!CzyNalezy(tab,szukane_wartosci[i]))
 		{
 			return false;
 		}
@@ -44,16 +44,14 @@ bool CzyZawiera(vector<int>tab, vector<int>szukane_wartosci)
 int max(vector<int>tab)
 {
 	int wynik = tab[0];
+	for (int i = 0;i < tab.size();i++)
 	{
-		for (int i = 0;i < tab.size();i++)
+		if (tab[i]>wynik)
 		{
-			if (tab[i] > wynik)
-			{
-				wynik = tab[i];
-			}
+			wynik = tab[i];
 		}
-		return wynik;
 	}
+	return wynik;
 }
 
 vector<int>unikalne(vector<int>tab)
@@ -77,18 +75,24 @@ vector<vector<int>>czestosc(vector<int>tab)
 	for (int i = 0;i < u.size();i++)
 	{
 		int licznik = 0;
-		for (int j=0;j<tab.size();j++)
+		for (int j = 0;j < tab.size();j++)
 		{
-			if (tab[j]==u[i])
+			if (tab[i]==tab[j])
 			{
-				licznik ++;
+				licznik++;
 			}
 		}
 		c.push_back(licznik);
 	}
-	wynik.push_back(u);
 	wynik.push_back(c);
+	wynik.push_back(u);
 	return wynik;
+}
+
+void wypisz(vector<vector<int>>tab)
+{
+	wypisz(tab[0]);
+	wypisz(tab[1]);
 }
 
 
@@ -96,27 +100,29 @@ int main()
 {
 	vector<int>tab = { 1,2,3 };
 	vector<int>szukane_wartosci = { 1,2 };
-	vector<int>tab2 = { 1,1,2,2,3,4,5,5 };
+	vector<int>tab2 = { 4,4,5,5,6,6 };
 	wypisz(tab);
+	cout << "Max\n";
 	wypisz(max(tab));
+	cout << "Unikalne\n";
+	wypisz(unikalne(tab2));
+	cout << "Czestosc\n";
+	wypisz(czestosc(tab2));
 	if (CzyNalezy(tab, 4))
 	{
-		cout << "nalezy \n";
+		cout << "Nalezy\n";
 	}
 	else
 	{
-		cout << "nie nalezy\n";
+		cout << "Nie nalezy\n";
 	}
 	if (CzyZawiera(tab, szukane_wartosci))
 	{
-		cout << "zawiera\n";
+		cout << "Zawiera\n";
 	}
 	else
 	{
-		cout << "nie zawiera\n";
+		cout << "Nie zawiera\n";
 	}
-
-	wypisz(unikalne(tab2));
-	wypisz(czestosc(tab2));
-
 	system("pause");
+}
