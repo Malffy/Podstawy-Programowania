@@ -1,2 +1,2 @@
 # Podstawy_programowania
-Cześć znajdziesz tu kody z przedmiotu podstaw programowania.
+Cześć znajdziesz tu kod z podstaw programowania.
