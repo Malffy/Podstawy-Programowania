@@ -2,6 +2,8 @@
 #include <iostream>
 #include<vector>
 #include<map>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 void wypisz(int w)
@@ -142,9 +144,95 @@ vector<int>generuj(int n,int max=50,int min=0 )
 	return wynik;
 }
 
+int maxD(vector<int>tab)
+{
+	int licznik = 0;
+	tab.push_back(1);
+	vector<int>w;
+	for (int i=0;i<tab.size();i++)
+	{
+		if (tab[i] % 2 == 0)
+		{
+			licznik++;
+		}
+		else
+		{
+			w.push_back(licznik);
+			licznik = 0;
+		}
+	}
+	return max(w);
+}
+
+bool czy_pierwsza(int x)
+{
+	if (x < 2)
+	{
+		return false;
+	}
+	for (int i = 2; i < x; i++)
+	{
+		if (x%i == 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+vector<int>n_pierwszych(int n)
+{
+	vector<int>w;
+	for (int i = 0; i < n; i++)
+	{
+		if (czy_pierwsza(i))
+		{
+			w.push_back(i);
+		}
+		else
+		{
+			n++;
+		}
+	}
+	return w;
+}
+
+void blizniacze_liczby_pierwsze(int n)
+{
+	for (int i = 0;; i++)
+	{
+		if (czy_pierwsza(i) && i > n)
+		{
+			cout << i << i + 2;
+			break;
+		}
+	}
+}
+
+int SumaCzesciowa(vector<int>tab)
+{
+	int w = 0;
+	for (int i = 0; i < tab.size(); i++)
+	{
+		for (int j = i; j < tab.size(); j++)
+		{
+			int sum = 0;
+			for (int k = i; k <= j; k++)
+			{
+				sum += tab[k];
+				if (sum > w)
+				{
+					w = sum;
+				}
+			}
+		}
+	}
+	return w;
+}
 
 int main()
 {
+	srand(time(NULL));
 	vector<int>tab = { 1,2,3 };
 	vector<int>szukane_wartosci = { 1,2 };
 	vector<int>tab2 = { 4,4,5,5,6,6 };
@@ -173,6 +261,68 @@ int main()
 	}
 	cout << "Podzielnosc\n";
 	wypisz(podzielnosc(tab,3));
+	
+	int x;
+	cin >> x;
+	for (int i = 2; i < x; i++)
+	{
+		int n = 0;
+		for (int j = i;j<=x; j = j * i)
+		{
+			n++;
+			if (x == j)
+			{
+				cout << "y=" << i << " n=" << n;
+			}
+		}
+	}
+	
+	int a;
+	cin >> a;
+
+	for (int i = 0; i < a * 2 + 3; i++)
+	{
+		cout << "*";
+	}
+	cout << endl;
+
+	for (int i = 0; i < a; i++)
+	{
+		cout << "* ";
+		for (int j = i; j < a - 1; j++)
+		{
+			cout << " ";
+		}
+		for (int j = i * 2 + 1; j > 0; j--)
+		{
+			cout << "*";
+		}
+		for (int j = i; j < a - 1; j++)
+		{
+			cout << " ";
+		}
+		cout << " *";
+
+		cout << endl;
+	}
+
+	cout << "* ";
+	for (int i = 0; i < a - 2; i++)
+	{
+		cout << " ";
+	}
+
+	cout << "***";
+	for (int i = 0; i < a - 2; i++)
+	{
+		cout << " ";
+	}
+	cout << " *";
+	cout << endl;
+	for (int i = 0; i < a * 2 + 3; i++)
+	{
+		cout << "*";
+	}
 
 	system("pause");
 }
